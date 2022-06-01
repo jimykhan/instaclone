@@ -1,5 +1,7 @@
 ﻿using System;
 using AutoMapper;
+using instaclone.Data.Entities;
+using instaclone.Dtos;
 
 namespace instaclone.Models
 {
@@ -7,7 +9,12 @@ namespace instaclone.Models
     {
         public MappingProfile()
         {
+            CreateMap<ApplicationUser, UserRegisterDto>()
+                .ReverseMap();
 
+            CreateMap<ApplicationUser, UserDto>()
+                .ForMember(d => d.AppUserId , opt => opt.MapFrom(s => s.Id))
+                .ReverseMap();
         }
     }
 }

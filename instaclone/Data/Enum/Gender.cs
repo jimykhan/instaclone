@@ -3,9 +3,10 @@ namespace instaclone.Data.Enum
 {
     public enum Gender
     {
-        Female = 0,
-        Male = 1,
-        Other = 2,
+        Other = 0,
+        Female = 1,
+        Male = 2,
+        
 
     }
 }

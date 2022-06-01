@@ -7,12 +7,6 @@ namespace instaclone.Data.Entities
 {
     public class ApplicationUser : IdentityUser
     {
-        public int Id { get; set; }
-
-        public string UserName { get; set; }
-
-        public string Email { get; set; }
-
         public string Name { get; set; }
 
         public Gender Gender { get; set; }

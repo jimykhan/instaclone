@@ -3,9 +3,13 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using instaclone.Data;
+using instaclone.Data.Entities;
+using instaclone.Services;
+using instaclone.Services.ServiceInterface;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.HttpsPolicy;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
@@ -32,6 +36,9 @@ namespace instaclone
 
             var connectionString = Configuration.GetConnectionString("DefaultConnection");
 
+            services.AddIdentity<ApplicationUser, IdentityRole>(options => options.SignIn.RequireConfirmedAccount = true)
+                .AddEntityFrameworkStores<ApplicationDbContext>();
+
             services.AddDbContext<ApplicationDbContext>(options =>
             {
                 options.UseNpgsql(connectionString, options =>
@@ -40,11 +47,19 @@ namespace instaclone
                 });
             });
 
+            services.AddAutoMapper(typeof(Startup));
+            services.AddScoped<IUserService, UserService>();
+           
+            //services.AddDefaultIdentity<IdentityUser<int>>(options => options.SignIn.RequireConfirmedAccount = true)
+            //.AddEntityFrameworkStores<ApplicationDbContext>();
+
             //services.UseNpsql(ConnectionString, options =>
             //{
             //    options.
             //});
             services.AddControllers();
+
+
 
             services.AddSwaggerGen(c =>
            {
